@@ -1,0 +1,199 @@
+/* ==========================================================================
+   LIBRARY PAGE COMPONENT
+   ========================================================================== */
+
+.main {
+    flex: 1 1 0%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-width: 0;
+    z-index: 0;
+}
+
+/* --- Hero Section --- */
+.hero {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem; /* Acercar al header */
+    margin-bottom: 1.5rem;
+}
+
+.heroLabel {
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
+}
+
+.heroTitle {
+    color: #ffffff;
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: -0.025em;
+    margin: 0 0 0.5rem 0;
+}
+
+@media (max-width: 768px) {
+    .heroTitle {
+        font-size: 2.5rem;
+    }
+}
+
+.heroStats {
+    color: var(--text-gray-400);
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0;
+}
+
+/* --- Sticky Bar (Tabs) --- */
+.stickyBar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    /* Efecto Glassmorphism solicitado */
+    background-color: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(20px);
+    margin: 0 -2rem 2rem -2rem;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.tabs {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    padding: 0 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 9999px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.tabActive {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    padding: 0 1rem;
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* --- Content Grid --- */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+@media (min-width: 640px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1024px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 1280px) { .grid { grid-template-columns: repeat(5, 1fr); } }
+
+/* --- card (reusing category logic but modular) --- */
+.card {
+    background-color: rgba(30, 41, 59, 0.4); /* surface-dark equivalent */
+    padding: 1rem;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    background-color: rgba(51, 65, 85, 0.7);
+    transform: translateY(-4px);
+}
+
+.imageContainer {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}
+
+.imageContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.card:hover .imageContainer img {
+    transform: scale(1.05);
+}
+
+.playBtn {
+    position: absolute;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    width: 3rem;
+    height: 3rem;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--primary);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(1rem);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.card:hover .playBtn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.info h3 {
+    margin: 0 0 0.25rem 0;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.info p {
+    margin: 0;
+    color: var(--text-gray-400);
+    font-size: 0.875rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- Skeleton --- */
+.skeletonCard {
+    height: 280px;
+    border-radius: 0.75rem;
+}

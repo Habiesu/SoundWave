@@ -1,0 +1,67 @@
+/* ==========================================================================
+   EXPLORE CATEGORY COMPONENT (Colorful Cards)
+   ========================================================================== */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.card {
+    position: relative;
+    height: 12rem; /* h-48 */
+    border-radius: 1rem; /* rounded-lg but matched to Home's consistency */
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+}
+
+.card:hover {
+    filter: brightness(1.1);
+    transform: translateY(-4px);
+}
+
+.title {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-size: 1.25rem; /* text-xl */
+    font-weight: 700;
+    color: #ffffff;
+    z-index: 1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.image {
+    position: absolute;
+    bottom: -1rem;
+    right: -1rem;
+    width: 7rem; /* w-28 */
+    height: 7rem; /* h-28 */
+    rotate: 25deg;
+    object-fit: cover;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover .image {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* ------------------ */
+/*  Media Queries   */
+/* ------------------ */
+
+@media (min-width: 768px) {
+    .grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1024px) {
+    .grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (min-width: 1280px) {
+    .grid { grid-template-columns: repeat(5, 1fr); }
+}

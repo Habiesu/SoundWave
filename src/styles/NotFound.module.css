@@ -1,0 +1,170 @@
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, #1e1b4b 0%, var(--background-dark) 100%);
+    color: #ffffff;
+    min-height: 100vh;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    z-index: 1;
+}
+
+.content {
+    position: relative;
+    z-index: 10;
+    max-width: 500px;
+}
+
+.errorCode {
+    font-size: 10rem;
+    font-weight: 900;
+    line-height: 1;
+    margin: 0;
+    letter-spacing: -0.05em;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.3);
+    position: relative;
+    animation: pulse 4s ease-in-out infinite;
+}
+
+.errorCode::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    color: #ffffff;
+    -webkit-text-stroke: 0;
+    filter: drop-shadow(0 0 20px var(--primary));
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+    animation: glitchTop 4s infinite linear alternate-reverse;
+}
+
+.errorCode::before {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    color: #ffffff;
+    -webkit-text-stroke: 0;
+    filter: drop-shadow(0 0 20px var(--primary));
+    clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+    animation: glitchBottom 4s infinite linear alternate-reverse;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(to right, #ffffff, var(--primary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.message {
+    font-size: 1.125rem;
+    color: #a1a1aa;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+}
+
+.homeButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: var(--primary);
+    color: #ffffff;
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 20px -5px rgba(139, 92, 246, 0.5);
+}
+
+.homeButton:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 15px 30px -5px rgba(139, 92, 246, 0.6);
+    background-color: var(--primary-hover);
+}
+
+/* Background Waves */
+.waveContainer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 300px;
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(transparent, var(--primary));
+    clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 0);
+    mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113,2,1200,34.05V0Z" fill="black"/></svg>');
+    mask-size: 50% 100%;
+}
+
+.wave1 {
+    animation: moveWave 10s linear infinite;
+}
+
+.wave2 {
+    animation: moveWave 15s linear infinite;
+    opacity: 0.5;
+    bottom: 20px;
+}
+
+.wave3 {
+    animation: moveWave 7s linear infinite;
+    opacity: 0.3;
+    bottom: -10px;
+}
+
+@keyframes moveWave {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+@keyframes glitchTop {
+    2%, 64% { transform: translate(2px, -2px); }
+    4%, 61% { transform: translate(-2px, 2px); }
+    62% { transform: translate(0, 0); }
+}
+
+@keyframes glitchBottom {
+    1%, 64% { transform: translate(-2px, 2px); }
+    3%, 61% { transform: translate(2px, -2px); }
+    62% { transform: translate(0, 0); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.02); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+    .errorCode {
+        font-size: 6rem;
+    }
+    .title {
+        font-size: 2rem;
+    }
+}

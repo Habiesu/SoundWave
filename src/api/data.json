@@ -1,0 +1,256 @@
+[
+    {
+        "id": "featured-1",
+        "type": "featured",
+        "title": "Ecos Digitales",
+        "subtitle": "La Era del Neón",
+        "description": "Descubre cómo la tecnología cyberpunk está moldeando la música del mañana en este episodio exclusivo con los creadores de SynthCity.",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuCqhUeviqlgkM8npbCP4ppSLqPqmitzx2Fhqp6TvxJcMoEWB1loAjMBLus9EsiG5XizAfPbV62rgL2n--msdOlBIdmeECtAYNwh6ETnIZYi7Bqs4GyW_wJXTKG5jDILxqE6xf1Ezsyahcv1jBdB4oc77Pjs2005XikUcifnzbPW_2kI7Lz4jryJlco-MM2vVAtdZj8_8Iq9xaX9QWCkrVF70T4PGNo32BHJ1a4",
+        "badge": "Destacado de la semana"
+    },
+    
+    {
+        "id": "show-1",
+        "type": "show",
+        "title": "Future Tech",
+        "description": "Innovación, gadgets y el mañana.",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuByqZMcbiaWkT4uL-8L970lmFGPoPXV9Twv63NW5hBz0CEZgVB7vYnBEGMQKsSS7hDV5Ec2Sk857h51pG_zbVw6GuujDRf69qKWdmTJJyk5oT0DDXJjTqruA1SEOt9LH60ix90MrJVZLl850es9yuxld_dT8_nlLvmUFZlnMZEMrxvEBKvCHVM_t3ZMx1IF_KjmqdiGrAVwfvHL0gs_TE7vDJdgTyg8LdNrxVdKT_R3_-vV5tbNw-fHJj9cNYEcrAysxF-cxDqy"
+    },
+    {
+        "id": "show-2",
+        "type": "show",
+        "title": "Deep Focus",
+        "description": "Música lo-fi para máxima productividad.",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuAory0EOy2VNQc0kgtQI0gxzjlNJec_UDbVFLswkOVew-f63wopuj_glGC85t_qM_iqM9Qs27Z5H62S-i3Z_yAIRZ_oy9fx_mcd_5QtK6y6Y4y13njCpp_jiWaLRiofiwPeY3GsAB1IErKuxrpiWItIT1GOaJpJ29arhvzI6VUx9Pe2QYIWozKp1AYxsaIuSIsF2skr4s_UPBRFP-hwymWzYe2zaqetMM26x178A0fsifUtxevwHlVtij1aQItgGttjr0VjnnZM"
+    },
+    {
+        "id": "show-3",
+        "type": "show",
+        "title": "Night City Stories",
+        "description": "Narrativas urbanas de ficción.",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuBIul-jEfuontc2_c5gx5YtCUk5qh4BBLe0wkpSGrqe4YQQ_9AYtFFCgD9Ap9ShmNJwdW7xLb5DtDyj1Upk8KXh15u-RZlIXsfq77nEywS33Ps1xmh4uj5hws0yQmPDay0otQ8bueD6Tek6qtMK2f2FsjafbAUZ0yqknl_9iEeTJkOSiQbEOEIuYQs6Ws6-XSnTmstnjTleB-5DA61uLXmOCqzV7TIXRZcnp2H5DXazQlM5RCyVnZ7Ozl18-QXM18Bv-2XD2VqN"
+    },
+    {
+        "id": "show-4",
+        "type": "show",
+        "title": "Retro Wave",
+        "description": "Synthwave y sonidos de los 80s.",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuBzBghF281ypR6G98oXgbMvwyq8z1X-m62tbUpl-aAfv4bhn8oAMfj1Jzz_az_Ihcf2xLRLtuM7PQ1TOEnghGj9nwhAgQ9U-NSydqYeqid2Pa9hZmIUCX1syEs_QvBnZEhITLFUwR28mZ97s09ip7DQMxSp6G_brhqF8f2afrpRhP8Lmqj4IX9bRpBJguDKCGyoq6g15pahDnFjbzedgLOoHlRfWs5cHmdFKB4lpdmwY-ucT3nI_IbhZtw6uzW7nbTk24HCtOOO"
+    },
+    {
+        "id": "show-5",
+        "type": "show",
+        "title": "True Crimes",
+        "description": "Investigaciones reales.",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuBIP-XOKbzxFTK-xsF6vGmL3mIQcpR9wHdxIvlqvmRm1IfWnRPfIOKc-l5GCedcHSD2eyMXhbqzjnmCrGXjkphedZn2zNFuIIHApYwwe9U7gb-UF9MGGskDqCaKYDi59yb_1RvvwdFnX990AxIM5_IkYsT-m4Dj6redB5hxAV_y6a6i1X52-d_wIsSyi0hpBMr9djaq5XDmWaVOaLEfVMKY3Pym9egXLCMhBW-8OMRCYF73AkJyR9pwFkNPQf1lYrSJXsyVZofW"
+    },
+
+    {
+        "id": "ep-1",
+        "type": "episode",
+        "title": "La Historia del Gaming: Ep. 42",
+        "author": "Pixel Perfect",
+        "timestamp": "Hace 2 horas",
+        "duration": "45:20",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuCcVgtrhL23u4ewjQF9w66quFkofqwc2pNRPc089azpACGOmuhepHsAsJdK71LIKvBcmmRUvcZCmN29PkrBTJ6nPx3aJrCjFlgJJmxNkKS8t2CuQHloTAQw42vZHwb1mW7CLw6rx3g_4sMt1NTygK6GfJH8penTcaZXvdv9zbwmfmwR3I-BZsKiz-bL0UY3iqmfmhdHf5BAgqG1v04HI0XaNki1jqo4gqhAP_lCmn0PvkEkr1m2ysfEDOMrKWikK13cvXLtM090"
+    },
+    {
+        "id": "ep-2",
+        "type": "episode",
+        "title": "Startups y Café: Entrevista a CEO",
+        "author": "Tech Daily",
+        "timestamp": "Ayer",
+        "duration": "1:12:05",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuA_aROuj7rnVKGCn4qS11mz7Yj714Oq8yHFmmHvOdxkniVACpP2EmkDHAirejec3B1PJQI96LwMM_lxryCqjFv8YP7Wd19bdF94OVlNyPBqehEUwWbkTzbCU7cMJpwI7XjcGRQTGkpI7Uqr1y1RTap8Rn9Lhm35rDr-624HBHUa2cI35c9hycbZmub42dPOg4VYVQgsu3DVOXWyNq4ExYRn9DUlLiqpaqrBHWFlXM2rFyJPjjJZQpDa1bKWsxj3QIG3lJBd4_pw"
+    },
+    {
+        "id": "ep-3",
+        "type": "episode",
+        "title": "Cinefilia: Análisis de Dune",
+        "author": "Séptimo Arte",
+        "timestamp": "Hace 3 días",
+        "duration": "58:30",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuATWZKW0LFOw7Fm2MEcWAxXW7lpDCzlUI0CXg-4R_T4Lw3WTyioSC-i6kz0O9rpLL3B6rd-IOFJ5TxPI-pfmfL-Apuy-ucoyECZsp7OQyqyoGgUX2QA0fkDBFQ9PMMTpUjJqIKoGb8cuvXCAgWHRILNsx9H_s8nIGAwljlQBzh2c-b-QJ8_lRiLXfK1jbNs4oF2n1ctHSTzrmGVlPXQ76XDwbECalpmJNxE4DzuyFXslLUJi39HUwg4MSjUxbFpsHLr2lzDiot4"
+    },
+
+    {
+        "id": "user-1",
+        "type": "user",
+        "username": "habiesu",
+        "name": "Javier H.",
+        "avatarUrl": "https://github.com/habiesu.png",
+        "stats": {
+            "hours": "1240",
+            "following": "45",
+            "followers": "12",
+            "playlists": "4",
+            "memberSince": "2023"
+        }
+    },
+
+    {
+        "id": "recent-1",
+        "type": "recently_played",
+        "title": "The Future of AI",
+        "show": "Tech Talk Daily",
+        "episode": "45",
+        "time_left": "15m left",
+        "progress": 75,
+        "played_at": "2h ago",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuDjXUGol_V6lmsLKvysQwmeXCuDAP8r9oiTRWtExv3R97mUJojY9OMKzimfc8TLtdiqkkeniwMOhP9-1VJYZe2eTfTqyd1AchfzslUYFsCefn4KFEE5t2KJTD4YA0obF3dhqLsuQeYKBcRjHw8adil88eWlcbSoGxgd6GUeDhTGudX8uqjgUKrE_4t6SCoXdnE_nggh9xvLfA_bhlPA00qS88U6EsDGRuQd19g_wfG3DRmh-RTUEYNh4MbX8yt7gAFJLowriuSh"
+    },
+    {
+        "id": "recent-2",
+        "type": "recently_played",
+        "title": "Design Systems 101",
+        "show": "Creative Minds",
+        "episode": "12",
+        "time_left": "Finished",
+        "progress": 100,
+        "played_at": "Yesterday",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuDERwjZAVbjiwjUU3TfswupLiaErR0ph8Fd7PFVbVkDZSdtxfLaKN_bBdiKf3SwrZw0FkYlH0PKaPOKuWQz1bZA4OMnS4kQ3KDbH3hwkKSJlDc6ZZjDW5e4IPocE_JyS_5XblBAHG5GqOItl-DthS_FwF8rFTkDoPS4OjhwKLwV5O721Iux47nHVGkNR-FxPhRyniQYx8WSAA2XS3-XLrAnN95evvSewBdHTKvVImE4yk-xN8StIOBUamTGKfdBGMZXoJn0nxsZ"
+    },
+    {
+        "id": "fav-1",
+        "type": "top_favorite",
+        "title": "Retro Gaming",
+        "description": "The best of 80s arcades and consoles.",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuDWcjMWiI1bSChSAFEPn6Tu7SF-dPjaiNz_AvU-CB1MgOYonHFcEtbiIgCra--nzXg3j3GzllhwFzo00oYyKoHQno-5AmZ3jMMZoFoW5im5EPwTsMRrrSLlDXMyK8AbUHizt4krzDi9T7gGAwGyDmVf2X14P5D8gg50qCrnIAU-ThtjmuIa0z5Wo9GuG-nZfAH40XlYwgDXk_ezoyFa4aODLZq-I3zfEiUgWxpdoR3_1jZCAoLoqZwgnoUqHpc3vzN7N5NYdzOL"
+    },
+
+    {
+        "id": "cat-1",
+        "type": "explore_category",
+        "title": "Comedia",
+        "color": "#E13300",
+        "imageUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuD4zOo6kyDdTVibalWPoh9eKyl3bmkpmUTrVXZ7OfOdXMPcwNwLCx-HQ0GkhAzbf59bc0qMlK73YaiiOC-_tR9esfnN6TGc38RddxiVlgLzRRPfI9eyk_5cldvEujN53OQ8VgtVXQai1d6lo3DCW5rlWrRXJQbVi0AsQLEm8rqWgRgUAIPh9-q90Lj3ocihz-jbW1kauNbnWTrjGLQ7xvptFBciUjJaQPs6ntCekOwRfDIrCJD1gylmN5hRp92wFKei2LAu3EmW"
+    },
+    {
+        "id": "cat-2",
+        "type": "explore_category",
+        "title": "Música",
+        "color": "#1E3264",
+        "imageUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuBgXKlpG21T5SlFrzZrQatmKCaDW7aGUvmKsWLzLaHaVijspY-x549x5ai2jtSYD2rtaRDiAgcK1KiHCjtAMWlXV4Yfb2uF44Bjndx5-IA0LU76kCHyGwRB4s_YtWfR6BCMbBrxlGoIOaS3fFZn8HR5ApQTPAHj5_-yazDu_XEvRyIeJ4gEjQ_efTrnUh36T1BUePima9Ygngo7G_Ps1Pazu9HYCXvXYwG-4lLVJovnieT-eUSHmu0C9hHDq6XiuAE9eB4ccESd"
+    },
+    {
+        "id": "cat-3",
+        "type": "explore_category",
+        "title": "Educación",
+        "color": "#8D67AB",
+        "imageUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuBjGNv6R8-1UOcpgh-XmlQjGnjYv1YXgckvrqyjzDMbBDL_w3-tiz942_YfJ1FQ0bT3PTwl0uqfpNigvdS8Dv_bxss0l7BbpbAMwLlqZISpkGWoz2_PFgCuOBKIH-k28We8sV4ZZPdAsNWKI-563gwEf4oqk4qWHfzMJU1XNTxnpSSSpCGiRXJc4ZFm1EtnAHfNjxqU1DGpZPTNMwr_Aej59PotGbnaTnSwUN-aeaSzuQFn0QuKELEN2jBB5GeN5mKwPgNQ9nnI"
+    },
+    {
+        "id": "cat-4",
+        "type": "explore_category",
+        "title": "Deportes",
+        "color": "#148A08",
+        "imageUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuDUOOTFTnsuiLc31Ex-oNYGi7xUUjDMgTEmdvLUQDgasoBqSg8-UpdXFPOqDc4WNkrVVZrWuexqw1qQTVeT0fNTOLVL1zXYG9imo-uoVY_g1B4QVEmUkxhQ_P9_fPP13-PLgKXgiAGPhzyaU99J-fWDPuy3cKVy-THbBUQ6bPmJgMWsyk6iKsMtVeOPmjJ3ckW4SC9vCLe5ceOjqOCBsQakXLv7OJ3RjIfOs423MypJm8BJMwHfDOaDWbb7UftgIK7oAsvrUXED"
+    },
+    {
+        "id": "cat-5",
+        "type": "explore_category",
+        "title": "Historia",
+        "color": "#BC5900",
+        "imageUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuBmGa1fYLvlZ19jxybobBnNVYPuPO-I1hVP0lFmR4-ss6Oai29e6_AD8CDKYdXDb7YamLtPGDKHpHAexZOCUxHspVS9PCAiyc06YPUTxwpvuKb6MjsE5ajuFqhKwo5IK17iuAjHw0WLfRPOEzyge0lqNu2YK-vuBwQFthKKVSqcd6zzi8zBFsiLkAXezcYNsQjpkSLU26kw4yaweo5uKtliQV0TfErSIipxJ3mO7h5Hc3sDGDgw5qD-vo30nTKHfLwGw1mJEnEb"
+    },
+    {
+        "id": "cat-6",
+        "type": "explore_category",
+        "title": "Tecnología",
+        "color": "#503750",
+        "imageUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuBgGQhxSfKdS_mr5LufHoFZU-GSfmyOs3pXKctuBmSp4UtR0VOv1TUjIa0vIstvOKvKdQcTa1pMz2FrymtBqAWLyyelGM6Sj-9OCKuB83iT8lZTZD94LlvTO_kuQrpZERyIBopgYmlkR0zNSDoGPuwPIEh2DRbCU0gKUMT8KdO1CCi1YwE2clkiEV2LG2b7SKZRl-Jdy4LkpTSG3QzLnzJVzB_51jFURqjcXXfgUSFteD8Sf9RM3WMuXb64TxTlT4YKpr2pnMld"
+    },
+
+    {
+        "id": "trend-1",
+        "type": "trending",
+        "title": "The Daily Deep Dive",
+        "description": "Exploring the depths of technology and modern society.",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuAvs35hQamD3K6Fqag4ZUkjmZcUjqiF2onp7sbLb58Fey9DnsHOicUxxtXwOQuU8HkjQd1tcwNE458H7AhHeOB6Bi9vScI8r94i0G74AKUXOQiLHRYEl4KZ6bVHdsuHqcUsFruKEu457jn0oyTWVmB2sjM0XiffXyMdF5xMIYqUJBx23Kidb182aZ2gT6B4nSFsPZfKdmd96ntGCk_YhoPRJPtdtkflTlSBl1U2ZIZ6BRB_KR0Z42gtoXVpFbcFihb0N1esBGsN"
+    },
+    {
+        "id": "trend-2",
+        "type": "trending",
+        "title": "Crime Junkie",
+        "description": "If you can't get enough of true crime...",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuBc0GBd9fk_IhU7SPv1krKKQN_v060Ninhj8KKBt4A9sORJGrnJ14gy8Q_J6m1eMBgsB2SLxksl-62dn8Wp47J8urAUXOKInsXQEwyFx2Iyo5LrOW7dlVRVsWNn2uVwwfdYMNAO8sW51PUc84TvNDzsipNqEag2l4rgmRbOlDFSGL2FI4SHESvS6GDUDFsJq8o7Bm1LegbidrvsECvHLyjiKM1I7C3yaEejI4_dxgDvYPnAV_pTI68sg7KQcCrjoEblBOLaI3FU"
+    },
+    {
+        "id": "trend-3",
+        "type": "trending",
+        "title": "Design Matters",
+        "description": "The world's first podcast about design.",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuAlAlimpeAFs8BmztHbmhApv8XWYGi8szBdZLUdgTSn0odpJhxXn4VbUbKxoR4s73bhbZNKU8aKeSaz_dGkj-Tpkx349F2aStKSOLfHOk050gEaprcwleDBkH-IOcffm1jsGIDwdgefWwixHbYpkDO4DG5YOwGOwrs2LEedwUlW6mlChK-O6Z-A4oUv7zvV8SXr45UdI_84b6GFKx2TUQqpLjYLsuEgXwlib0TcY_6sA529mq0gANtmNLFSXPwWpnMFLhDDiONM"
+    },
+    {
+        "id": "trend-4",
+        "type": "trending",
+        "title": "Syntax - Tasty Web",
+        "description": "Wes Bos and Scott Tolinski for web developers.",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuCHa8kzQDfN1fS4RhhFdJ-OPDqlDuix5c1ZLqeFszZO0WFwQOfILp2mLQN5Pa1gvTNAiaz98LzYIQ6cgByQtMlOke0P1hZz-LTuPaAwbILwT6P_vf1mzkWXheVKP-FCihPOjVPXaG3oQLsM7gemns43HXmsHhJobhz1l1QxcXeRP_CSiRf94Vzj8vzKxd8wxonnSLLqmhpnMPFPNGBWfTB03UMlcQPicTTlr_AqR8mQI5gCNiZ8x00aPGfOTv3rwNgcpzbjltRw"
+    },
+    {
+        "id": "trend-5",
+        "type": "trending",
+        "title": "History of Rome",
+        "description": "A weekly podcast tracing the history of the Roman Empire.",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuBY5ow4sh4sHoHO4JbZVCSzY26w722lyFdnzZk-LFDY3mMUIJPjZ86NS94PmBhEK_BL5lk0o1CW1caIj-E-DH769YOi3hMUAl3B74_A0RUgrM5O6oKNrp58UxQej-8LO-hRT2qNuiwZaqNReWBBQyHz6_H4bNDoN0abGVzhFGRNRdGozRV0g9VH9ClzHxDQZfY3IqlYIbxHe9uAh_K7fiN0V1jlGi5KdcYFMPddfSGV2__mqzd52qFtRb8cS82zk77QhPmZKHwJ"
+    },
+
+    {
+        "id": "lib-1",
+        "type": "library_show",
+        "title": "Tech Talk Daily",
+        "category": "Tecnología",
+        "frequency": "Semanal",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuBRSEIpmidg2D-FZi6wrMDjb0TuoI2H9bhZAY2BR7sOtuWXX3HP8zgEPIbLJ79GLLfnBsInqRKd5jPS8Ky3grT7V0zGMUNP7NoPNILpAXvl3UZOKkmVCHRQT722S49bCWnCeN6olYaEtKvrjDTODIuOJEhr-17D7u8Uh-Mt6sjqM7rWLDGb2q39MtnpMwZtNMsPkeoguWHvrOrldfj9lw6Pl1tloYrWQrj0HdNkbvO5fvoAydBkc__glDi3iVqm5Y5UxHCdZKrl"
+    },
+    {
+        "id": "lib-2",
+        "type": "library_show",
+        "title": "Historia Oculta",
+        "category": "Historia",
+        "frequency": "Mensual",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuApdeqlAc72dUkoQdLDTWqfqoUiCUMElxd4Y8FJOnG12P4UO8mqx1lgdYu83Tu2WrnCdegx746KoHCW9FeZ1GuZPlQxmGpm9bkOg5uvwpIcRp5CfHy0444Qx-m9r-CGsYZORymEl2rgN62CKVDD2I4KhrDfnu7hdUGI2v2AAPpEewTRfVVS_M5T-4smA6rj9GIQKwpj9DHc2JRG3um-M64ek2GESNwQ9-K3jSeTDOvJ4T7CuiU-z8RRrCwmEp_e24L5hxsXynsN"
+    },
+    {
+        "id": "lib-3",
+        "type": "library_show",
+        "title": "Mindful Morning",
+        "category": "Salud",
+        "frequency": "Diario",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuDMsQeit4BnaHv2NnpxylTqHDcRR61XA1F-O-2_vYjXHXS01AICFBiD6pqtW6j_6qglr1rksM0Aw3vPjYjutTKn1bntbkr_lJk0CEaRIPKrMz2ORchRVB0feVx65Mg5ej_in4ida2HuMD2ph2S-EvoEoe1AJS6kmcTVourvNYglush3_XXnnZ2-2wo2flpbDUpphMbGxrIreU1OWBVKuAeA30E-Vc0RWlCDqc5X2ocW6kOlKeG-w9S66txh_KKWW6Ih3qItU7vq"
+    },
+    {
+        "id": "lib-4",
+        "type": "library_show",
+        "title": "True Crime Weekly",
+        "category": "Crimen",
+        "frequency": "Semanal",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuBenX4Car-aZz-DL4e5--RtDu7kfYWUQINLQgsGeA_HOQXQXq-gmSbodw5fioDrd7teo4-dFApRKPR6VepZsBOW7E-4Kve9coSFhwR1gYLWlaYdclqbj__ewzxxMcvsd9CDlMPX_NUxeIy_xHG9yJjErdxNjU8jt0jfiVDBFjpDG70gA_C_NHK4CI_47VgAYYsnjA4jmHSdlx612kL6a8fvahqqCv-ef7HrYcUZYg4cNFDloSTXi130eOwVTgE3GlJBvjgFMT2s"
+    },
+    {
+        "id": "lib-5",
+        "type": "library_show",
+        "title": "Indie Rock Radar",
+        "category": "Música",
+        "frequency": "Diario",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuB0UCUF48fxSuV31zDcnJTZD4qZ23L7F4OFnW8R4jvBirBRuqaslngp57YG7KWPZaIP9nH6_pq8Gd1VBvulNPjzidQ7GoHsxqP_CDpLtB9q7IytXjOJsuDViTeeLlhNHZ8LcnEM5Hz5GmblyBfKY0fpD2GpmP0MEA1SJlnNPwYkFMM40QngrE8hl9wnGWx3CLh2e-BCuhnaEIK1DQ0ZywaMltUYptfLmwiglWHT1KCn9SADaKj7Jn3zrYb1GkNPsIg9EZIBz5In"
+    },
+    {
+        "id": "lib-6",
+        "type": "library_show",
+        "title": "Global News",
+        "category": "Noticias",
+        "frequency": "Diario",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuCiL5dYmXIdv2pJUblWmPH-byG9fqras9XxmRIGj-5yTRn7PVeInddkBYE_XSwW5lgP6NuDhcWiznnx2c5vcMgRAU66pzuG6p_Z00fN1KzISH4nsnhnahD-blCmJwpH81ez7b6jEbk0PsdeE4gPI3vvxoh41iYnqvYgc6zTLAW0rdlAu4pmlFNBUQjVdrbSZvXH5sWtMLaGvjXmp-kgXU5kTY1J8w5R53EyZxemFze6IST7-GHQ5jhMzuLP-vqxiJJsrkflOSke"
+    },
+    {
+        "id": "lib-7",
+        "type": "library_show",
+        "title": "Foodie Chronicles",
+        "category": "Comida",
+        "frequency": "Semanal",
+        "coverUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuDKWs8DsYsFA60sjC-PWkpgfRYNDOXAYPWGY1l2nUN-2igHiRQszwpnz4pAREAlnspOSkuliKHq80rC5pmxfsw_j-xC-jEaIbVt8cEu6D-NxE4OPjC-WFapyGU73KV5zUUzWfbsdSoAFMsDx-UPEgEn5GWksWUgI2hKW2FhTwtSeSylr-wFr397Y-4FEoeHwsTqu-RoocQgjYjxVG-Ws6RrZKyj39PPQmHrzPhBs72_zdblUQTCXH8awfR4oAlAWc-KV7P90jKF"
+    }
+]
