@@ -49,4 +49,4 @@ Este proyecto funciona como una aplicación práctica de los conceptos aprendido
 > Puedes visitar su sitio web en: [www.jscamp.dev](https://www.jscamp.dev)
 
 ---
-Construido por Javier López 😎
+Work in progress...
