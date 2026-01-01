@@ -1,18 +1,18 @@
-/* Contenedor Principal del Player */
 .playerBar {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   height: 90px;
-  background-color: rgba(9, 9, 11, 0.85); /* background-dark con transparencia */
+  background-color: rgba(9, 9, 11, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
+  padding: 0 48px;
+  /* Más aire a los lados para que no esté pegado a los bordes */
   z-index: 100;
   color: #ffffff;
 }
@@ -22,7 +22,8 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  width: 30%;
+  flex: 1;
+  min-width: 0;
 }
 
 .playerCover {
@@ -31,6 +32,13 @@
   border-radius: 8px;
   object-fit: cover;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+}
+
+.playerText {
+  min-width: 0;
+  max-width: 180px;
+  /* El nombre se cortará antes, evitando que empuje los controles */
 }
 
 .playerText h4 {
@@ -38,12 +46,20 @@
   font-size: 14px;
   font-weight: 600;
   font-family: 'Spline Sans', sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* Puntos suspensivos */
 }
 
 .playerText p {
   margin: 0;
   font-size: 12px;
-  color: #a1a1aa; /* text-secondary */
+  color: #a1a1aa;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* Puntos suspensivos */
 }
 
 /* Sección Central: Controles */
@@ -52,7 +68,9 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  width: 40%;
+  flex: 2;
+  min-width: 300px;
+  max-width: 600px;
 }
 
 .controlButtons {
@@ -86,7 +104,7 @@
 
 .btnPlay:hover {
   transform: scale(1.05);
-  background-color: #8b5cf6; /* primary */
+  background-color: #8b5cf6;
   color: #ffffff;
 }
 
@@ -101,48 +119,75 @@
   color: #a1a1aa;
 }
 
-.progressBar {
+.progressBarInput {
+  -webkit-appearance: none;
+  appearance: none;
   flex: 1;
   height: 4px;
-  background-color: #27272a; /* surface-highlight */
+  background: #27272a;
   border-radius: 2px;
-  position: relative;
+  outline: none;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
-.progressCurrent {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 35%; /* Este valor lo cambiarás con React */
+.progressBarInput::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0px;
+  height: 0px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: -400px 0 0 400px #ffffff;
+  transition: all 0.2s ease;
+}
+
+.progressBarInput::-moz-range-thumb {
+  width: 0;
+  height: 0;
+  border: none;
+  border-radius: 50%;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.progressContainer:hover .progressBarInput::-webkit-slider-thumb {
+  width: 12px;
+  height: 12px;
+  box-shadow: -400px 0 0 400px #8b5cf6;
+}
+
+.progressContainer:hover .progressBarInput::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: #ffffff;
+}
+
+.progressBarInput::-moz-range-progress {
   background-color: #ffffff;
+  height: 4px;
   border-radius: 2px;
 }
 
-.progressBar:hover .progressCurrent {
+.progressContainer:hover .progressBarInput::-moz-range-progress {
   background-color: #8b5cf6;
 }
 
 /* Sección Derecha: Volumen */
 .playerExtra {
-  width: 30%;
+  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 16px;
+  justify-content: center;
+  /* CENTRADO dentro de su tercio derecho, para que no esté pegado al borde */
+  gap: 12px;
+  min-width: 150px;
 }
 
-.volumeSlider {
-  width: 100px;
-  height: 4px;
-  background-color: #27272a;
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.volumeLevel {
-  width: 70%;
-  height: 100%;
-  background-color: #a1a1aa;
+.volumeInput {
+  width: 80px;
+  /* Un poco más grande pero no "muy grande" */
+  flex: none;
+  flex-shrink: 0;
 }

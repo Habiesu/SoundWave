@@ -15,7 +15,7 @@
 .hero {
     display: flex;
     flex-direction: column;
-    margin-top: 1rem; /* Acercar al header */
+    margin-top: 1rem;
     margin-bottom: 1.5rem;
 }
 
@@ -43,10 +43,48 @@
 }
 
 .heroStats {
-    color: var(--text-gray-400);
-    font-size: 1rem;
-    font-weight: 400;
-    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+    padding: 0.6rem 1.25rem;
+    background: rgba(139, 92, 246, 0.1);
+    /* Primary tint */
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    border-radius: 99px;
+    font-size: 0.9rem;
+    color: #ffffff;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 20px -5px rgba(0, 0, 0, 0.3);
+    line-height: normal;
+    /* Ensure better vertical centering */
+}
+
+.heroStats strong {
+    color: var(--primary);
+    font-weight: 800;
+    margin: 0 0.4rem;
+    /* Better breathing room */
+}
+
+.statIcon {
+    color: var(--primary);
+    font-variation-settings: 'FILL' 1;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    margin-right: -0.2rem;
+}
+
+.processingBadge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 1rem;
+    margin-left: 0.25rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--primary);
+    font-weight: 600;
 }
 
 /* --- Sticky Bar (Tabs) --- */
@@ -54,9 +92,9 @@
     position: sticky;
     top: 0;
     z-index: 20;
-    /* Efecto Glassmorphism solicitado */
-    background-color: rgba(15, 23, 42, 0.5);
-    backdrop-filter: blur(20px);
+    background-color: rgba(15, 23, 42, 0.8);
+    /* Less blur, more solid */
+    backdrop-filter: blur(10px);
     margin: 0 -2rem 2rem -2rem;
     padding: 1rem 2rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -105,21 +143,20 @@
 /* --- Content Grid --- */
 .grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1.5rem;
+    width: 100%;
+    padding-bottom: 2rem;
 }
-
-@media (min-width: 640px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-@media (min-width: 1024px) { .grid { grid-template-columns: repeat(4, 1fr); } }
-@media (min-width: 1280px) { .grid { grid-template-columns: repeat(5, 1fr); } }
 
 /* --- card (reusing category logic but modular) --- */
 .card {
-    background-color: rgba(30, 41, 59, 0.4); /* surface-dark equivalent */
+    background-color: rgba(30, 41, 59, 0.4);
     padding: 1rem;
     border-radius: 0.75rem;
     cursor: pointer;
     transition: all 0.3s ease;
+    position: relative;
 }
 
 .card:hover {
@@ -173,6 +210,40 @@
     transform: translateY(0);
 }
 
+/* Botones de acción en la tarjeta (Simplificados) */
+.editBtn {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    /* Movido a la derecha */
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(9, 9, 11, 0.85);
+    /* Darker solid background instead of blur */
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(-1rem);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.editBtn:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: scale(1.1) !important;
+}
+
+.card:hover .editBtn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .info h3 {
     margin: 0 0 0.25rem 0;
     color: #ffffff;
@@ -192,8 +263,349 @@
     text-overflow: ellipsis;
 }
 
-/* --- Skeleton --- */
-.skeletonCard {
-    height: 280px;
+/* --- Edit & Deletion --- */
+
+/* Botones de herramientas en modal */
+.modalTools {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.toolBtn {
+    flex: 1;
+    min-width: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0.6rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-gray-300);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.toolBtn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.toolBtnActive {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: rgba(139, 92, 246, 0.1);
+}
+
+.toolBtnActive:hover:not(:disabled) {
+    background: rgba(139, 92, 246, 0.15);
+}
+
+.toolBtnUndo:hover:not(:disabled) {
+    border-color: #ef4444;
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.deleteBtn {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(9, 9, 11, 0.85);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(-1rem);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.deleteBtn:hover {
+    background-color: #ef4444;
+    /* red-500 */
+    color: white;
+    transform: scale(1.1) !important;
+}
+
+.card:hover .deleteBtn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.uploadZone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 300px;
+    background-color: rgba(30, 41, 59, 0.3);
+    border: 2px dashed rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 2rem;
+    grid-column: 1 / -1;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.uploadZone:hover,
+.dragging {
+    border-color: var(--primary);
+    background-color: rgba(139, 92, 246, 0.1);
+    transform: translateY(-4px);
+}
+
+/* --- Search Bar --- */
+.searchBarContainer {
+    display: flex;
+    align-items: center;
+    background-color: rgba(30, 41, 59, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 9999px;
+    padding: 0.5rem 1rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    max-width: 500px;
+    transition: all 0.3s ease;
+}
+
+.searchBarContainer:focus-within {
+    background-color: rgba(30, 41, 59, 0.6);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+.searchBarContainer span {
+    color: var(--text-gray-400);
+    margin-right: 0.5rem;
+}
+
+.searchBar {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 0.95rem;
+    width: 100%;
+    outline: none;
+}
+
+.searchBar::placeholder {
+    color: var(--text-gray-500);
+}
+
+.clearSearch {
+    background: none;
+    border: none;
+    color: var(--text-gray-400);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+}
+
+.clearSearch:hover {
+    color: white;
+}
+
+.hiddenInput {
+    display: none;
+}
+
+.miniBtn {
+    background: none;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    opacity: 0.8;
+}
+
+.miniBtn:hover {
+    opacity: 1;
+    background-color: rgba(139, 92, 246, 0.1);
+}
+
+/* --- Modals --- */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+}
+
+.modalContent {
+    background-color: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.25rem;
+    width: 100%;
+    max-width: 500px;
+    padding: 2.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    position: relative;
+    color: white;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.closeModal {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-gray-400);
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.closeModal:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.2);
+    transform: rotate(90deg);
+}
+
+.modalHeader h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.formGroup {
+    margin-bottom: 1.25rem;
+}
+
+.formGroup label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-gray-400);
+    margin-bottom: 0.5rem;
+}
+
+.formGroup input {
+    width: 100%;
+    background-color: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: white;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.formGroup input:focus {
+    border-color: var(--primary);
+    background-color: rgba(30, 41, 59, 0.8);
+}
+
+.urlInputGroup {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.urlInputGroup button {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 0.75rem;
+    padding: 0 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.urlInputGroup button:hover {
+    background-color: var(--primary-hover);
+}
+
+.urlInputGroup button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.modalFooter {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2.5rem;
+}
+
+.btnCancel {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btnCancel:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.btnSave {
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 0.75rem 2.5rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btnSave:hover:not(:disabled) {
+    transform: scale(1.05);
+}
+
+.btnSave:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
