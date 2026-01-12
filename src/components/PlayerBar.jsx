@@ -6,10 +6,13 @@ export default function PlayerBar() {
     const { currentSong, isPlaying, setIsPlaying, nextSong, prevSong } = useContext(AudioContext);
     const audioRef = useRef(null);
 
-    // Estado local
+    // Estado local con persistencia
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
-    const [volume, setVolume] = useState(1); // 0 a 1
+    const [volume, setVolume] = useState(() => {
+        const saved = localStorage.getItem('sw-volume');
+        return saved !== null ? Number(saved) : 0.7; // 0.7 por defecto
+    });
     const [isLooping, setIsLooping] = useState(false);
 
     // Efecto para Play/Pause
@@ -23,13 +26,18 @@ export default function PlayerBar() {
         }
     }, [currentSong, isPlaying]);
 
-    // Efecto para cambios de Volumen y Loop
+    // Efecto para persistir volumen
+    useEffect(() => {
+        localStorage.setItem('sw-volume', volume);
+    }, [volume]);
+
+    // Efecto para cambios de Volumen, Loop y Sincronización al cambiar canción
     useEffect(() => {
         if (audioRef.current) {
             audioRef.current.volume = volume;
             audioRef.current.loop = isLooping;
         }
-    }, [volume, isLooping]);
+    }, [volume, isLooping, currentSong]);
 
     const togglePlay = () => {
         if (!currentSong) return;
@@ -68,9 +76,15 @@ export default function PlayerBar() {
                 src={currentSong.src}
                 onTimeUpdate={handleTimeUpdate}
                 onEnded={() => {
-                    if (!isLooping) nextSong(); // Autoplay siguiente si no está en loop
+                    if (!isLooping) nextSong();
                 }}
-                onLoadedMetadata={(e) => setDuration(e.target.duration)}
+                onLoadedMetadata={(e) => {
+                    setDuration(e.target.duration);
+                    e.target.volume = volume; // Refuerzo al cargar
+                }}
+                onPlay={(e) => {
+                    e.target.volume = volume; // Refuerzo al dar play
+                }}
                 autoPlay={isPlaying}
             />
 
@@ -90,12 +104,15 @@ export default function PlayerBar() {
             {/* Centro: Controles */}
             <div className={styles.playerControls}>
                 <div className={styles.controlButtons}>
+                    {/* Botón de Shuffle */}
                     <button className={styles.btnIcon}><span className="material-symbols-outlined">shuffle</span></button>
 
+                    {/* Botón de Previous */}
                     <button className={styles.btnIcon} onClick={prevSong}>
                         <span className="material-symbols-outlined">skip_previous</span>
                     </button>
 
+                    {/* Botón de Play/Pause */}
                     <button
                         className={`${styles.btnIcon} ${styles.btnPlay}`}
                         onClick={togglePlay}
@@ -105,10 +122,12 @@ export default function PlayerBar() {
                         </span>
                     </button>
 
+                    {/* Botón de Next */}
                     <button className={styles.btnIcon} onClick={nextSong}>
                         <span className="material-symbols-outlined">skip_next</span>
                     </button>
 
+                    {/* Botón de Repeat */}
                     <button
                         className={styles.btnIcon}
                         style={{ color: isLooping ? 'var(--primary)' : 'inherit' }}

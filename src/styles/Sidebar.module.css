@@ -1,5 +1,6 @@
-aside{
-    width: 16rem; /* w-64 */
+aside {
+    width: 16rem;
+    /* w-64 */
     z-index: 20;
     flex-shrink: 0;
     display: flex;
@@ -21,23 +22,23 @@ aside{
     color: var(--text-primary);
 }
 
-.logoAnchor h1 { 
+.logoAnchor h1 {
     font-size: 1.25rem;
     font-weight: 700;
     letter-spacing: -0.025em;
     margin: 0;
 }
 
-.logoContainer { 
-  background: linear-gradient(to top right, #8b5cf6, #5b21b6); 
-  aspect-ratio: 1 / 1;
-  border-radius: 9999px;
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.2);
+.logoContainer {
+    background: linear-gradient(to top right, #8b5cf6, #5b21b6);
+    aspect-ratio: 1 / 1;
+    border-radius: 9999px;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.2);
 }
 
 /* ------------ NAVBAR ------------ */
@@ -81,7 +82,7 @@ aside{
 }
 
 /* -------- TUS PLAYLISTS -------- */
-.options{
+.options {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;

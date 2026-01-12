@@ -27,18 +27,21 @@ export default function Library() {
         searchItunesMetadata
     } = useContext(AudioContext);
 
-    const [isDragging, setIsDragging] = useState(false);
-    const [searchQuery, setSearchQuery] = useState("");
-    const dragCounter = useRef(0);
-
-    // Modal State
+    // Modal | State
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [songToEdit, setSongToEdit] = useState(null);
     const [editForm, setEditForm] = useState({ name: "", artist: "", album: "", ytUrl: "" });
     const [isFetchingUrl, setIsFetchingUrl] = useState(false);
 
+    // Drag and drop | State
+    const [isDragging, setIsDragging] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+    const dragCounter = useRef(0);
+
+    // Drag and drop | Handlers
     const onDragEnter = (e) => {
         e.preventDefault();
+        console.log(e.dataTransfer.items)
         dragCounter.current += 1;
         if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
             setIsDragging(true);

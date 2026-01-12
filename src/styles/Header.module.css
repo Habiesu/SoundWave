@@ -3,20 +3,31 @@
    ========================================================================== */
 
 .header {
+    /* Variables locales */
+    --header-bg: rgba(15, 23, 42, 0.95);
+    --search-bg: #1e293b;
+    --search-focus-bg: #334155;
+
+    /* Posicionamiento */
     position: sticky;
     top: 0;
     z-index: 100;
+
+    /* Layout */
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
-    background-color: rgba(15, 23, 42, 0.95); /* bg-[#0f172a]/95 */
-    backdrop-filter: blur(12px); /* backdrop-blur-md */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* border-white/5 */
+    justify-content: space-between;
     gap: 1.5rem;
+    padding: 1rem 2rem;
+
+    /* Estética */
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border-subtle);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
-/* --- Search Bar --- */
+/* --- SECTION: SEARCH BAR --- */
 .searchContainer {
     flex: 1;
     max-width: 28rem;
@@ -30,43 +41,43 @@
 
 .searchIcon {
     position: absolute;
-    left: 1rem;
     top: 50%;
+    left: 1rem;
     transform: translateY(-50%);
-    color: #9ca3af; /* text-gray-400 */
+    color: var(--text-dim);
     font-size: 1.25rem;
-    transition: color 0.2s;
     pointer-events: none;
+    transition: color var(--transition-fast);
 }
 
 .searchInput {
     display: block;
     width: 100%;
-    background-color: #1e293b; /* bg-[#1e293b] */
-    border: 1px solid transparent;
-    border-radius: 9999px; /* rounded-full */
-    padding: 0.625rem 1rem 0.625rem 3rem; /* py-2.5 pl-12 pr-4 */
-    font-size: 0.875rem;
+    padding: 0.625rem 1rem 0.625rem 3rem;
+    background-color: var(--search-bg);
     color: #ffffff;
-    transition: all 0.3s ease;
-    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06); /* shadow-inner */
+    font-size: 0.875rem;
+    border: 1px solid transparent;
+    border-radius: 9999px;
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+    outline: none;
+    transition: all var(--transition-normal);
 }
 
 .searchInput::placeholder {
-    color: #9ca3af;
+    color: var(--text-dim);
 }
 
 .searchInput:focus {
-    outline: none;
-    background-color: #334155; /* focus:bg-[#334155] */
-    border-color: rgba(139, 92, 246, 0.5); /* focus:border-primary/50 */
+    background-color: var(--search-focus-bg);
+    border-color: var(--primary-glow);
 }
 
 .searchLabel:focus-within .searchIcon {
     color: #ffffff;
 }
 
-/* --- Header Right Side --- */
+/* --- SECTION: HEADER RIGHT SIDE --- */
 .headerRight {
     display: flex;
     align-items: center;
@@ -82,16 +93,16 @@
     height: 2.5rem;
     padding: 0;
     background: none;
+    color: var(--text-dim);
     border: none;
     border-radius: 50%;
-    color: #9ca3af;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all var(--transition-fast);
 }
 
 .navButton:hover {
-    color: #ffffff;
     background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
 }
 
 .notificationDot {
@@ -101,24 +112,24 @@
     width: 0.5rem;
     height: 0.5rem;
     background-color: var(--primary);
+    border: 2px solid var(--bg-deep);
     border-radius: 50%;
-    border: 2px solid #0f172a;
 }
 
-/* --- User Menu --- */
+/* --- SECTION: USER MENU & LOGIN --- */
 .userButton {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    height: 2.5rem;
     padding: 0.25rem 0.75rem 0.25rem 0.25rem;
     background-color: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 9999px;
-    height: 2.5rem; /* Altura fija para evitar saltos */
-    cursor: pointer;
-    transition: background-color 0.2s;
     color: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: 9999px;
     box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
 }
 
 .userButton:hover {
@@ -128,9 +139,9 @@
 .avatar {
     width: 2rem;
     height: 2rem;
-    border-radius: 50%;
-    background-size: cover;
     background-position: center;
+    background-size: cover;
+    border-radius: 50%;
 }
 
 .userName {
@@ -142,33 +153,41 @@
     position: absolute;
     top: 65%;
     right: 3%;
-    margin-top: 0.75rem;
-    background-color: var(--card-background);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 0.5rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
     min-width: 12rem;
+    margin-top: 0.75rem;
+    padding: 0.5rem 0;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-active);
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-lg);
     overflow: hidden;
     animation: slideIn 0.2s ease-out;
 }
 
 @keyframes slideIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .menuItem {
     display: block;
     width: 100%;
     padding: 0.75rem 1rem;
-    text-align: left;
     background: none;
-    border: none;
     color: #d1d5db;
-    cursor: pointer;
     font-size: 0.875rem;
+    text-align: left;
     text-decoration: none;
-    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
 }
 
 .menuItem:hover {
@@ -178,25 +197,25 @@
 
 .divider {
     height: 1px;
-    background-color: rgba(255, 255, 255, 0.1);
     margin: 0.25rem 0;
+    background-color: var(--border-subtle);
 }
 
 .loginButton {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 2.5rem;
+    padding: 0 1.5rem;
     background-color: #ffffff;
     color: #000000;
-    padding: 0 1.5rem;
-    height: 2.5rem; /* Misma altura que el botón de usuario */
-    border: none;
-    border-radius: 9999px;
     font-size: 0.875rem;
     font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.2s;
+    border: none;
+    border-radius: 9999px;
     box-sizing: border-box;
+    cursor: pointer;
+    transition: transform var(--transition-fast);
 }
 
 .loginButton:hover {
