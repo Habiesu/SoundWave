@@ -23,7 +23,7 @@ const slugify = (text) => {
 
 const initDB = () => {
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open(DB_NAME, 4); // Versión 4 para Historial y Favoritos
+        const request = indexedDB.open(DB_NAME, 5); // Incrementado para resolver error de versión anterior
         request.onupgradeneeded = (e) => {
             const db = e.target.result;
             if (!db.objectStoreNames.contains(STORE_NAME)) {
