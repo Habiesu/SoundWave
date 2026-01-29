@@ -615,12 +615,63 @@ export function AudioProvider({ children }) {
         }
     };
 
+    const downloadLibrary = async () => {
+        setIsLoading(true);
+        updateProcessingState('download', 'Preparando descarga...', true);
+        try {
+            const zip = new JSZip();
+
+            for (const song of audioList) {
+                if (song.file) {
+                    // Create a safe filename: "Title - Artist.ext"
+                    const extension = song.file.name.split('.').pop() || 'mp3';
+                    const baseName = `${song.name} - ${song.artist}`;
+                    const safeName = `${baseName}.${extension}`.replace(/[<>:"/\\|?*]/g, '_');
+                    zip.file(safeName, song.file);
+
+                    // Si la canción tiene una portada (enviada desde IndexedDB como Blob)
+                    if (song.coverBlob) {
+                        const coverExt = song.coverBlob.type.split('/')[1] || 'jpg';
+                        const safeCoverName = `covers/${baseName}.${coverExt}`.replace(/[<>:"/\\|?*]/g, '_');
+                        zip.file(safeCoverName, song.coverBlob);
+                    }
+                }
+            }
+
+            // Include metadata manifest
+            const manifest = audioList.map(s => ({
+                id: s.id,
+                name: s.name,
+                artist: s.artist,
+                album: s.album
+            }));
+            zip.file("soundwave_metadata.json", JSON.stringify(manifest, null, 2));
+
+            const blob = await zip.generateAsync({ type: "blob" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `SoundWave_Library_${new Date().toISOString().split('T')[0]}.zip`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error("Error generating zip:", error);
+            alert("Error al generar la descarga. Revisa la consola.");
+        } finally {
+            updateProcessingState('download', '', false);
+            setIsLoading(false);
+        }
+    };
+
     return (
         <AudioContext.Provider value={{
             audioList, isPlaying, setIsPlaying, currentSong, playSong, playlists,
             nextSong: () => audioIndex !== null && playSong((audioIndex + 1) % audioList.length),
             prevSong: () => audioIndex !== null && playSong((audioIndex - 1 + audioList.length) % audioList.length),
             handleFolderSelect, isLoading, isProcessing, processingMessage, enrichSong, enrichAllSongs, stopEnrichment, deleteAllSongs, deleteSong, restoreMetadata, restoreAllSongs,
+            downloadLibrary,
             fetchMetadataFromUrl, updateSongMetadata, searchMetadata, searchItunesMetadata,
             createPlaylist: async (name) => {
                 const id = crypto.randomUUID();

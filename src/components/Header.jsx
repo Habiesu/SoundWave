@@ -12,7 +12,7 @@ export default function Header({ onMenuClick }) {
 
     const toggleMenu = () => setShowMenu(!showMenu)
     const { isLoggedIn, Login, Logout } = useAuth()
-    const { recentlyPlayed, audioList, playSong } = useContext(AudioContext);
+    const { recentlyPlayed, audioList, playSong, downloadLibrary } = useContext(AudioContext);
 
     /* Efecto para obtener el usuario */
     useEffect(() => {
@@ -128,6 +128,10 @@ export default function Header({ onMenuClick }) {
                                         <span className="material-symbols-outlined">person</span>
                                         <span>Mi perfil</span>
                                     </Link>
+                                    <button className={styles.menuItem} onClick={() => { downloadLibrary(); setShowMenu(false); }}>
+                                        <span className="material-symbols-outlined">download</span>
+                                        <span>Descargar Biblioteca</span>
+                                    </button>
                                     <Link href="/settings" className={styles.menuItem} onClick={() => setShowMenu(false)}>
                                         <span className="material-symbols-outlined">settings</span>
                                         <span>Ajustes</span>
