@@ -12,12 +12,7 @@
     --modal-bg: rgba(15, 23, 42, 0.9);
     --input-bg: rgba(30, 41, 59, 0.5);
 
-    flex: 1 1 0%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    min-width: 0;
-    z-index: 0;
+    width: 100%;
 }
 
 /* --- SECTION: HERO --- */
@@ -214,49 +209,6 @@
     transform: translateY(0);
 }
 
-.editBtn,
-.deleteBtn {
-    position: absolute;
-    top: 0.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    background-color: rgba(9, 9, 11, 0.85);
-    color: #ffffff;
-    border: none;
-    border-radius: 50%;
-    opacity: 0;
-    transform: translateY(-1rem);
-    transition: all var(--transition-normal);
-    cursor: pointer;
-    z-index: 5;
-}
-
-.editBtn {
-    right: 0.75rem;
-}
-
-.deleteBtn {
-    left: 0.75rem;
-}
-
-.editBtn:hover {
-    background-color: var(--primary);
-    transform: scale(1.1);
-}
-
-.deleteBtn:hover {
-    background-color: #ef4444;
-    transform: scale(1.1);
-}
-
-.card:hover .editBtn,
-.card:hover .deleteBtn {
-    opacity: 1;
-    transform: translateY(0);
-}
 
 .info h3 {
     margin: 0 0 0.25rem 0;

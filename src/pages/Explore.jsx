@@ -1,4 +1,3 @@
-import Header from "../components/Header.jsx";
 import { SectionTitle } from "../components/SectionTitle.jsx";
 import { TrendingPodcasts } from "../components/TrendingPodcasts.jsx";
 import { ExploreCategory } from "../components/ExploreCategory.jsx";
@@ -10,7 +9,6 @@ export default function Explore() {
 
     return (
         <main>
-            <Header />
             <div className={styles.container}>
                 {/* Filtros rápidos estilo Spotify */}
                 <div className={exploreStyles.filterScroll}>

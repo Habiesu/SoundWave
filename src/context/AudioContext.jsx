@@ -8,14 +8,29 @@ export const AudioContext = createContext();
 // --- IndexedDB Utils ---
 const DB_NAME = "SoundWaveDB";
 const STORE_NAME = "songs";
+const PLAYLISTS_STORE = "playlists";
+
+// Helper para crear Slugs amigables
+const slugify = (text) => {
+    return text
+        .toString()
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, '-')     // Reemplaza espacios con -
+        .replace(/[^\w-]+/g, '')  // Quita caracteres no permitidos
+        .replace(/--+/g, '-');    // Quita guiones dobles
+};
 
 const initDB = () => {
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open(DB_NAME, 1);
+        const request = indexedDB.open(DB_NAME, 4); // Versión 4 para Historial y Favoritos
         request.onupgradeneeded = (e) => {
             const db = e.target.result;
             if (!db.objectStoreNames.contains(STORE_NAME)) {
                 db.createObjectStore(STORE_NAME, { keyPath: "id", autoIncrement: true });
+            }
+            if (!db.objectStoreNames.contains(PLAYLISTS_STORE)) {
+                db.createObjectStore(PLAYLISTS_STORE, { keyPath: "id" }); // Sin autoIncrement para usar UUIDs
             }
         };
         request.onsuccess = () => resolve(request.result);
@@ -31,11 +46,33 @@ const saveSongsToDB = async (songs) => {
     return new Promise((r) => tx.oncomplete = r);
 };
 
+const savePlaylistToDB = async (playlist) => {
+    const db = await initDB();
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction(PLAYLISTS_STORE, "readwrite");
+        const store = tx.objectStore(PLAYLISTS_STORE);
+        const request = store.add(playlist);
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+    });
+};
+
 const getAllSongsFromDB = async () => {
     const db = await initDB();
     return new Promise((resolve, reject) => {
         const tx = db.transaction(STORE_NAME, "readonly");
         const store = tx.objectStore(STORE_NAME);
+        const request = store.getAll();
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+    });
+};
+
+const getAllPlaylistsFromDB = async () => {
+    const db = await initDB();
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction(PLAYLISTS_STORE, "readonly");
+        const store = tx.objectStore(PLAYLISTS_STORE);
         const request = store.getAll();
         request.onsuccess = () => resolve(request.result);
         request.onerror = () => reject(request.error);
@@ -61,6 +98,61 @@ const deleteSongFromDB = async (songId) => {
     const tx = db.transaction(STORE_NAME, "readwrite");
     const store = tx.objectStore(STORE_NAME);
     store.delete(songId);
+    return new Promise((r) => tx.oncomplete = r);
+};
+
+const updatePlayHistoryInDB = async (songId) => {
+    const db = await initDB();
+    const tx = db.transaction(STORE_NAME, "readwrite");
+    const store = tx.objectStore(STORE_NAME);
+    const getReq = store.get(songId);
+    getReq.onsuccess = () => {
+        if (getReq.result) {
+            const data = { ...getReq.result, lastPlayed: Date.now() };
+            store.put(data);
+        }
+    };
+    return new Promise((r) => tx.oncomplete = r);
+};
+
+const toggleFavoriteInDB = async (songId) => {
+    const db = await initDB();
+    const tx = db.transaction(STORE_NAME, "readwrite");
+    const store = tx.objectStore(STORE_NAME);
+    const getReq = store.get(songId);
+    return new Promise((resolve) => {
+        getReq.onsuccess = () => {
+            if (getReq.result) {
+                const isFav = !getReq.result.isFavorite;
+                const data = { ...getReq.result, isFavorite: isFav };
+                store.put(data);
+                resolve(isFav);
+            } else {
+                resolve(null);
+            }
+        };
+    });
+};
+
+const deletePlaylistFromDB = async (playlistId) => {
+    const db = await initDB();
+    const tx = db.transaction(PLAYLISTS_STORE, "readwrite");
+    const store = tx.objectStore(PLAYLISTS_STORE);
+    store.delete(playlistId);
+    return new Promise((r) => tx.oncomplete = r);
+};
+
+const updatePlaylistInDB = async (playlistId, updates) => {
+    const db = await initDB();
+    const tx = db.transaction(PLAYLISTS_STORE, "readwrite");
+    const store = tx.objectStore(PLAYLISTS_STORE);
+    const getReq = store.get(playlistId);
+    getReq.onsuccess = () => {
+        if (getReq.result) {
+            const data = { ...getReq.result, ...updates };
+            store.put(data);
+        }
+    };
     return new Promise((r) => tx.oncomplete = r);
 };
 
@@ -219,6 +311,7 @@ export function AudioProvider({ children }) {
     const [audioIndex, setAudioIndex] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentSong, setCurrentSong] = useState(null);
+    const [playlists, setPlaylists] = useState([]); // Nueva seccion
     const [isLoading, setIsLoading] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
     const [processingMessage, setProcessingMessage] = useState("");
@@ -251,6 +344,24 @@ export function AudioProvider({ children }) {
                     src: null // Don't create src for all songs at once
                 })));
             }
+
+            const savedPlaylists = await getAllPlaylistsFromDB();
+
+            // Migración: Asegurar que todas las playlists tengan un slug
+            const migratedPlaylists = [];
+            for (const pl of savedPlaylists) {
+                if (!pl.slug) {
+                    const newSlug = slugify(pl.name);
+                    const updatedPl = { ...pl, slug: newSlug };
+                    await updatePlaylistInDB(pl.id, { slug: newSlug });
+                    migratedPlaylists.push(updatedPl);
+                } else {
+                    migratedPlaylists.push(pl);
+                }
+            }
+
+            setPlaylists(migratedPlaylists);
+
             setIsLoading(false);
         };
         load();
@@ -432,17 +543,21 @@ export function AudioProvider({ children }) {
         }
     };
 
-    const playSong = (index) => {
+    const playSong = async (index) => {
         if (index >= 0 && index < audioList.length) {
             const song = audioList[index];
 
+            // Actualizar historial en DB
+            await updatePlayHistoryInDB(song.id);
+
             // Lazy load audio src only when needed
-            let updatedSong = { ...song };
+            let updatedSong = { ...song, lastPlayed: Date.now() };
             if (!song.src) {
                 updatedSong.src = URL.createObjectURL(song.file);
-                // Update the song in the list with the new src URL
-                setAudioList(prev => prev.map((s, i) => i === index ? updatedSong : s));
             }
+
+            // Actualizar estado local para que se refleje en la UI (recientemente escuchado)
+            setAudioList(prev => prev.map((s, i) => i === index ? updatedSong : (s.id === song.id ? { ...s, lastPlayed: Date.now() } : s)));
 
             setAudioIndex(index);
             setCurrentSong(updatedSong);
@@ -502,11 +617,72 @@ export function AudioProvider({ children }) {
 
     return (
         <AudioContext.Provider value={{
-            audioList, isPlaying, setIsPlaying, currentSong, playSong,
+            audioList, isPlaying, setIsPlaying, currentSong, playSong, playlists,
             nextSong: () => audioIndex !== null && playSong((audioIndex + 1) % audioList.length),
             prevSong: () => audioIndex !== null && playSong((audioIndex - 1 + audioList.length) % audioList.length),
             handleFolderSelect, isLoading, isProcessing, processingMessage, enrichSong, enrichAllSongs, stopEnrichment, deleteAllSongs, deleteSong, restoreMetadata, restoreAllSongs,
-            fetchMetadataFromUrl, updateSongMetadata, searchMetadata, searchItunesMetadata
+            fetchMetadataFromUrl, updateSongMetadata, searchMetadata, searchItunesMetadata,
+            createPlaylist: async (name) => {
+                const id = crypto.randomUUID();
+                let baseSlug = slugify(name);
+                // Asegurar slug único
+                let slug = baseSlug;
+                let counter = 1;
+                while (playlists.some(p => p.slug === slug)) {
+                    slug = `${baseSlug}-${counter++}`;
+                }
+
+                const newPl = { id, name, slug, songIds: [] };
+                await savePlaylistToDB(newPl);
+                const p = await getAllPlaylistsFromDB();
+                setPlaylists(p);
+                return id;
+            },
+            deletePlaylist: async (id) => {
+                await deletePlaylistFromDB(id);
+                setPlaylists(prev => prev.filter(p => p.id !== id));
+            },
+            addSongToPlaylist: async (playlistId, songId) => {
+                const playlist = playlists.find(p => p.id === playlistId);
+                if (playlist && !playlist.songIds.includes(songId)) {
+                    const newSongIds = [...playlist.songIds, songId];
+                    await updatePlaylistInDB(playlistId, { songIds: newSongIds });
+                    setPlaylists(prev => prev.map(p => p.id === playlistId ? { ...p, songIds: newSongIds } : p));
+                    return true;
+                }
+                return false;
+            },
+            renamePlaylist: async (id, newName) => {
+                let baseSlug = slugify(newName);
+                let slug = baseSlug;
+                let counter = 1;
+                while (playlists.some(p => p.slug === slug && p.id !== id)) {
+                    slug = `${baseSlug}-${counter++}`;
+                }
+                await updatePlaylistInDB(id, { name: newName, slug });
+                setPlaylists(prev => prev.map(p => p.id === id ? { ...p, name: newName, slug } : p));
+            },
+            removeSongFromPlaylist: async (playlistId, songId) => {
+                const playlist = playlists.find(p => p.id === playlistId);
+                if (playlist) {
+                    const newSongIds = playlist.songIds.filter(id => id !== songId);
+                    await updatePlaylistInDB(playlistId, { songIds: newSongIds });
+                    setPlaylists(prev => prev.map(p => p.id === playlistId ? { ...p, songIds: newSongIds } : p));
+                }
+            },
+            toggleFavorite: async (songId) => {
+                const isFav = await toggleFavoriteInDB(songId);
+                if (isFav !== null) {
+                    setAudioList(prev => prev.map(s => s.id === songId ? { ...s, isFavorite: isFav } : s));
+                    if (currentSong?.id === songId) {
+                        setCurrentSong(prev => ({ ...prev, isFavorite: isFav }));
+                    }
+                }
+            },
+            recentlyPlayed: audioList
+                .filter(s => s.lastPlayed)
+                .sort((a, b) => b.lastPlayed - a.lastPlayed)
+                .slice(0, 3)
         }}>
             {children}
         </AudioContext.Provider>

@@ -1,0 +1,81 @@
+.contextMenu {
+    position: fixed;
+    background-color: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    padding: 0.5rem;
+    z-index: 2000;
+    min-width: 180px;
+    animation: fadeIn 0.1s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.625rem 0.75rem;
+    background: none;
+    border: none;
+    color: #cbd5e1;
+    font-size: 0.875rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+    text-align: left;
+}
+
+.item span.favorited {
+    color: #ef4444; /* Rojo vibrante */
+}
+
+.item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.item span {
+    font-size: 1.25rem;
+}
+
+.itemHasSubmenu {
+    position: relative;
+}
+
+.itemHasSubmenu > .item {
+    justify-content: space-between;
+}
+
+.submenu {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    background-color: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.5rem;
+    min-width: 160px;
+    margin-left: 0.25rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}
+
+.divider {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 0.4rem 0.5rem;
+}
+
+.danger {
+    color: #f87171;
+}
+
+.danger:hover {
+    background-color: rgba(248, 113, 113, 0.1);
+    color: #f87171;
+}

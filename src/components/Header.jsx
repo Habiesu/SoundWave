@@ -1,16 +1,18 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useContext } from "react"
 import { Link } from "./Link.jsx";
 import { api } from "../api/client.js";
 import styles from "../styles/Header.module.css"
 import { useAuth } from '../hooks/useAuth.jsx'
+import { AudioContext } from "../context/AudioContext.jsx";
 
-export default function Header() {
+export default function Header({ onMenuClick }) {
     const [showMenu, setShowMenu] = useState(false)
     const [userData, setUserData] = useState(null)
     const menuRef = useRef(null)
 
     const toggleMenu = () => setShowMenu(!showMenu)
     const { isLoggedIn, Login, Logout } = useAuth()
+    const { recentlyPlayed, audioList, playSong } = useContext(AudioContext);
 
     /* Efecto para obtener el usuario */
     useEffect(() => {
@@ -43,6 +45,18 @@ export default function Header() {
 
     return (
         <header className={styles.header}>
+            <button className={styles.hamburgerBtn} onClick={onMenuClick} aria-label="Abrir menú">
+                <span className="material-symbols-outlined">menu</span>
+            </button>
+
+            {/* Mobile Logo Logo */}
+            <Link href="/" className={styles.mobileLogo}>
+                <div className={styles.logoContainer}>
+                    <span className="material-symbols-outlined">graphic_eq</span>
+                </div>
+                <span className={styles.logoText}>SoundWave</span>
+            </Link>
+
             <div className={styles.searchContainer}>
                 <label className={styles.searchLabel}>
                     <span className={`material-symbols-outlined ${styles.searchIcon}`}>search</span>
@@ -78,15 +92,53 @@ export default function Header() {
                             </button>
 
                             {showMenu && (
-                                <div className={styles.userMenu} >
-                                    <Link href="/profile" className={styles.menuItem}>Mi perfil</Link>
-                                    <Link href="/settings" className={styles.menuItem}>Ajustes</Link>
+                                <div className={styles.userMenu}>
+                                    <div className={styles.menuHeader}>
+                                        <p className={styles.menuHeaderName}>{userData?.name || "Usuario"}</p>
+                                        <p className={styles.menuHeaderEmail}>{'@' + userData?.username || "@habiesu"}</p>
+                                    </div>
                                     <div className={styles.divider}></div>
-                                    <button className={styles.menuItem} onClick={() => {
+
+                                    {/* SECCIÓN ESCUCHADO RECIENTEMENTE (MAX 3) */}
+                                    {recentlyPlayed.length > 0 && (
+                                        <div className={styles.recentDropdownSection}>
+                                            <p className={styles.recentSectionTitle}>Escuchado recientemente</p>
+                                            {recentlyPlayed.map((song) => (
+                                                <button
+                                                    key={song.id}
+                                                    className={styles.recentMenuItem}
+                                                    onClick={() => {
+                                                        const idx = audioList.findIndex(s => s.id === song.id);
+                                                        if (idx !== -1) playSong(idx);
+                                                        setShowMenu(false);
+                                                    }}
+                                                >
+                                                    <span className="material-symbols-outlined">history</span>
+                                                    <div className={styles.recentMenuItemInfo}>
+                                                        <p className={styles.recentMenuItemTitle}>{song.name}</p>
+                                                        <p className={styles.recentMenuItemArtist}>{song.artist}</p>
+                                                    </div>
+                                                </button>
+                                            ))}
+                                            <div className={styles.divider}></div>
+                                        </div>
+                                    )}
+
+                                    <Link href="/profile" className={styles.menuItem} onClick={() => setShowMenu(false)}>
+                                        <span className="material-symbols-outlined">person</span>
+                                        <span>Mi perfil</span>
+                                    </Link>
+                                    <Link href="/settings" className={styles.menuItem} onClick={() => setShowMenu(false)}>
+                                        <span className="material-symbols-outlined">settings</span>
+                                        <span>Ajustes</span>
+                                    </Link>
+                                    <div className={styles.divider}></div>
+                                    <button className={`${styles.item || styles.menuItem} ${styles.logoutItem}`} onClick={() => {
                                         Logout()
                                         setShowMenu(false)
                                     }}>
-                                        Cerrar sesión
+                                        <span className="material-symbols-outlined">logout</span>
+                                        <span>Cerrar sesión</span>
                                     </button>
                                 </div>
                             )}

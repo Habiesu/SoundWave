@@ -1,50 +1,38 @@
-import { useState, useEffect } from "react";
-import { api } from "../api/client";
-import Header from "../components/Header";
+import { useState, useContext, useMemo } from "react";
 import homeStyles from "../styles/Home.module.css";
 import styles from "../styles/Profile.module.css";
+import { AudioContext } from "../context/AudioContext";
 
 export default function Profile() {
-    const [userData, setUserData] = useState(null);
-    const [recentlyPlayed, setRecentlyPlayed] = useState([]);
-    const [favorites, setFavorites] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const { recentlyPlayed, audioList, playSong, playlists } = useContext(AudioContext);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [user, recent, favs] = await Promise.all([
-                    api.getUser(),
-                    api.getRecentlyPlayed(),
-                    api.getTopFavorites()
-                ]);
-                setUserData(user);
-                setRecentlyPlayed(recent);
-                setFavorites(favs);
-            } catch (err) {
-                console.error("Error fetching profile data:", err);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchData();
-    }, []);
+    // User data mock (could be moved to context later if needed)
+    const userData = {
+        name: "Javier H.",
+        username: "habiesu",
+        stats: {
+            memberSince: "2024",
+            playlists: playlists.length,
+            hours: "128",
+            following: "42",
+            followers: "12"
+        }
+    };
 
-    if (loading) {
-        return (
-            <main className={styles.profileContainer}>
-                <Header />
-                <div className={homeStyles.container}>
-                    <p style={{ color: 'white' }}>Cargando perfil...</p>
-                </div>
-            </main>
-        );
-    }
+    const [activeTab, setActiveTab] = useState("general");
+
+    const favorites = useMemo(() =>
+        audioList.filter(s => s.isFavorite),
+        [audioList]);
+
+    const history = useMemo(() =>
+        audioList
+            .filter(s => s.lastPlayed)
+            .sort((a, b) => b.lastPlayed - a.lastPlayed),
+        [audioList]);
 
     return (
         <main className={styles.profileContainer}>
-            <Header />
-
             <div className={homeStyles.container} style={{ paddingTop: 0 }}>
                 {/* Profile Header */}
                 <header className={styles.header}>
@@ -94,66 +82,172 @@ export default function Profile() {
 
                     {/* Tabs */}
                     <nav className={styles.tabs}>
-                        <span className={`${styles.tab} ${styles.tabActive}`}>Vista General</span>
-                        <span className={styles.tab}>Historial</span>
-                        <span className={styles.tab}>Favoritos</span>
-                        <span className={styles.tab}>Ajustes</span>
+                        <span
+                            className={`${styles.tab} ${activeTab === 'general' ? styles.tabActive : ''}`}
+                            onClick={() => setActiveTab('general')}
+                        >
+                            Vista General
+                        </span>
+                        <span
+                            className={`${styles.tab} ${activeTab === 'history' ? styles.tabActive : ''}`}
+                            onClick={() => setActiveTab('history')}
+                        >
+                            Historial
+                        </span>
+                        <span
+                            className={`${styles.tab} ${activeTab === 'favorites' ? styles.tabActive : ''}`}
+                            onClick={() => setActiveTab('favorites')}
+                        >
+                            Favoritos
+                        </span>
+                        <span
+                            className={`${styles.tab} ${activeTab === 'settings' ? styles.tabActive : ''}`}
+                            onClick={() => setActiveTab('settings')}
+                        >
+                            Ajustes
+                        </span>
                     </nav>
 
-                    {/* Recently Played */}
-                    <section className={styles.section}>
-                        <div className={styles.sectionHeader}>
-                            <h2>Escuchado recientemente</h2>
-                            <a href="#" className={styles.showAll}>Ver Todo</a>
-                        </div>
-                        <div className={styles.recentList}>
-                            {recentlyPlayed.map((item) => (
-                                <div key={item.id} className={styles.recentItem}>
-                                    <div className={styles.recentImageContainer}>
-                                        <img src={item.coverUrl} className={styles.recentImage} alt={item.title} />
-                                    </div>
-                                    <div className={styles.recentInfo}>
-                                        <h3 className={styles.recentTitle}>{item.title}</h3>
-                                        <p className={styles.recentSubtitle}>{item.show} • Episodio {item.episode}</p>
-                                    </div>
-                                    <div className={styles.progressContainer}>
-                                        <div className={styles.progressBar}>
-                                            <div
-                                                className={styles.progressFill}
-                                                style={{ width: `${item.progress}%` }}
-                                            ></div>
-                                        </div>
-                                        <span className={styles.timeText}>{item.time_left}</span>
-                                    </div>
-                                    <div className={styles.recentMeta}>
-                                        <span className={styles.timeAgo}>{item.played_at}</span>
-                                        <span className={`material-symbols-outlined ${styles.favoriteIcon}`}>favorite</span>
-                                    </div>
+                    {/* VISTA GENERAL */}
+                    {activeTab === "general" && (
+                        <>
+                            <section className={styles.section}>
+                                <div className={styles.sectionHeader}>
+                                    <h2>Escuchado recientemente</h2>
+                                    <button className={styles.showAll} onClick={() => setActiveTab('history')}>Ver Todo</button>
                                 </div>
-                            ))}
-                        </div>
-                    </section>
+                                <div className={styles.recentList}>
+                                    {recentlyPlayed.length > 0 ? (
+                                        recentlyPlayed.map((song) => (
+                                            <div key={song.id} className={styles.recentItem} onClick={() => {
+                                                const idx = audioList.findIndex(s => s.id === song.id);
+                                                if (idx !== -1) playSong(idx);
+                                            }}>
+                                                <div className={styles.recentImageContainer}>
+                                                    <img src={song.displayCover || "/default_album.jpg"} className={styles.recentImage} alt={song.name} />
+                                                </div>
+                                                <div className={styles.recentInfo}>
+                                                    <h3 className={styles.recentTitle}>{song.name}</h3>
+                                                    <p className={styles.recentSubtitle}>{song.artist} • {song.album || "Desconocido"}</p>
+                                                </div>
+                                                <div className={styles.recentMeta}>
+                                                    <span className={styles.timeAgo}>
+                                                        {new Date(song.lastPlayed).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                    </span>
+                                                    {song.isFavorite && (
+                                                        <span className={`material-symbols-outlined ${styles.favoriteIcon}`}>favorite</span>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <p style={{ color: 'var(--text-dim)', padding: '1rem' }}>No hay reproducciones recientes.</p>
+                                    )}
+                                </div>
+                            </section>
 
-                    {/* Top Favorites */}
-                    <section className={styles.section}>
-                        <div className={styles.sectionHeader}>
-                            <h2>Tus favoritos</h2>
-                        </div>
-                        <div className={styles.grid}>
-                            {favorites.map((item) => (
-                                <div key={item.id} className={styles.card}>
-                                    <div className={styles.cardImageContainer}>
-                                        <img src={item.coverUrl} className={styles.cardImage} alt={item.title} />
-                                        <button className={styles.playButton}>
-                                            <span className="material-symbols-outlined text-white text-3xl filled">play_arrow</span>
-                                        </button>
-                                    </div>
-                                    <h3 className={styles.cardTitle}>{item.title}</h3>
-                                    <p className={styles.cardDescription}>{item.description}</p>
+                            <section className={styles.section}>
+                                <div className={styles.sectionHeader}>
+                                    <h2>Mis favoritos</h2>
+                                    <button className={styles.showAll} onClick={() => setActiveTab('favorites')}>Ver Todo</button>
                                 </div>
-                            ))}
-                        </div>
-                    </section>
+                                <div className={styles.grid}>
+                                    {favorites.slice(0, 4).length > 0 ? (
+                                        favorites.slice(0, 4).map((song) => (
+                                            <div key={song.id} className={styles.card} onClick={() => {
+                                                const idx = audioList.findIndex(s => s.id === song.id);
+                                                if (idx !== -1) playSong(idx);
+                                            }}>
+                                                <div className={styles.cardImageContainer}>
+                                                    <img src={song.displayCover || "/default_album.jpg"} className={styles.cardImage} alt={song.name} />
+                                                    <button className={styles.playButton}>
+                                                        <span className="material-symbols-outlined text-white text-3xl filled">play_arrow</span>
+                                                    </button>
+                                                </div>
+                                                <h3 className={styles.cardTitle}>{song.name}</h3>
+                                                <p className={styles.cardDescription}>{song.artist}</p>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <p style={{ color: 'var(--text-dim)', padding: '1rem' }}>Aun no tienes canciones favoritas.</p>
+                                    )}
+                                </div>
+                            </section>
+                        </>
+                    )}
+
+                    {/* HISTORIAL COMPLETO */}
+                    {activeTab === "history" && (
+                        <section className={styles.section}>
+                            <div className={styles.sectionHeader}>
+                                <h2>Historial completo</h2>
+                            </div>
+                            <div className={styles.recentList}>
+                                {history.length > 0 ? (
+                                    history.map((song) => (
+                                        <div key={`history-${song.id}`} className={styles.recentItem} onClick={() => {
+                                            const idx = audioList.findIndex(s => s.id === song.id);
+                                            if (idx !== -1) playSong(idx);
+                                        }}>
+                                            <div className={styles.recentImageContainer}>
+                                                <img src={song.displayCover || "/default_album.jpg"} className={styles.recentImage} alt={song.name} />
+                                            </div>
+                                            <div className={styles.recentInfo}>
+                                                <h3 className={styles.recentTitle}>{song.name}</h3>
+                                                <p className={styles.recentSubtitle}>{song.artist} • {song.album || "Desconocido"}</p>
+                                            </div>
+                                            <div className={styles.recentMeta}>
+                                                <span className={styles.timeAgo}>
+                                                    {new Date(song.lastPlayed).toLocaleDateString()} {new Date(song.lastPlayed).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p style={{ color: 'var(--text-dim)', padding: '1rem' }}>No hay canciones en el historial.</p>
+                                )}
+                            </div>
+                        </section>
+                    )}
+
+                    {/* FAVORITOS COMPLETO */}
+                    {activeTab === "favorites" && (
+                        <section className={styles.section}>
+                            <div className={styles.sectionHeader}>
+                                <h2>Tus favoritos</h2>
+                            </div>
+                            <div className={styles.grid}>
+                                {favorites.length > 0 ? (
+                                    favorites.map((song) => (
+                                        <div key={`fav-${song.id}`} className={styles.card} onClick={() => {
+                                            const idx = audioList.findIndex(s => s.id === song.id);
+                                            if (idx !== -1) playSong(idx);
+                                        }}>
+                                            <div className={styles.cardImageContainer}>
+                                                <img src={song.displayCover || "/default_album.jpg"} className={styles.cardImage} alt={song.name} />
+                                                <button className={styles.playButton}>
+                                                    <span className="material-symbols-outlined text-white text-3xl filled">play_arrow</span>
+                                                </button>
+                                            </div>
+                                            <h3 className={styles.cardTitle}>{song.name}</h3>
+                                            <p className={styles.cardDescription}>{song.artist}</p>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p style={{ color: 'var(--text-dim)', padding: '1rem' }}>No has marcado ninguna canción como favorita.</p>
+                                )}
+                            </div>
+                        </section>
+                    )}
+
+                    {/* AJUSTES PLACEHOLDER */}
+                    {activeTab === "settings" && (
+                        <section className={styles.section}>
+                            <h2>Ajustes</h2>
+                            <p style={{ color: 'var(--text-dim)' }}>Próximamente...</p>
+                        </section>
+                    )}
+
                 </div>
             </div>
         </main>

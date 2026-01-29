@@ -2,14 +2,16 @@ import { useContext, useState, useRef } from "react";
 import { AudioContext } from "../context/AudioContext";
 import styles from "../styles/Library.module.css";
 import homeStyles from "../styles/Home.module.css";
-import Header from "../components/Header.jsx";
 import { Spinner } from "../components/Spinner";
 import SongCard from "../components/SongCard";
+import ContextMenu from "../components/ContextMenu";
 
 export default function Library() {
     const {
         audioList,
         playSong,
+        isPlaying,
+        currentSong,
         isLoading,
         isProcessing,
         processingMessage,
@@ -36,6 +38,7 @@ export default function Library() {
     // Drag and drop | State
     const [isDragging, setIsDragging] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
+    const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0, song: null });
     const dragCounter = useRef(0);
 
     // Drag and drop | Handlers
@@ -141,6 +144,20 @@ export default function Library() {
         });
     };
 
+    const handleContextMenu = (e, song) => {
+        e.preventDefault();
+        setContextMenu({
+            visible: true,
+            x: e.clientX,
+            y: e.clientY,
+            song: song
+        });
+    };
+
+    const handleCloseContextMenu = () => {
+        setContextMenu({ ...contextMenu, visible: false });
+    };
+
     const handleSaveEdit = async () => {
         const updates = {
             name: editForm.name,
@@ -167,7 +184,6 @@ export default function Library() {
             onDragLeave={onDragLeave}
             onDrop={onDrop}
         >
-            <Header />
             <div className={homeStyles.container} style={{ paddingTop: 0 }}>
                 {/* Hero Section */}
                 <div className={styles.hero}>
@@ -340,6 +356,9 @@ export default function Library() {
                                             onPlay={playSong}
                                             onDelete={deleteSong}
                                             onEdit={handleOpenEdit}
+                                            onContextMenu={(e) => handleContextMenu(e, song)}
+                                            isPlaying={isPlaying}
+                                            currentSongId={currentSong?.id}
                                         />
                                     );
                                 });
@@ -366,8 +385,8 @@ export default function Library() {
 
             {/* Edit Modal */}
             {isModalOpen && (
-                <div className={styles.modalOverlay} onClick={() => setIsModalOpen(false)}>
-                    <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+                <div className={styles.modalOverlay} onMouseDown={() => setIsModalOpen(false)}>
+                    <div className={styles.modalContent} onMouseDown={e => e.stopPropagation()}>
                         <div className={styles.modalHeader}>
                             <h2>Editar Información</h2>
                             <button className={styles.closeModal} onClick={() => setIsModalOpen(false)}>
@@ -458,6 +477,18 @@ export default function Library() {
                         </div>
                     </div>
                 </div>
+            )}
+
+            {contextMenu.visible && (
+                <ContextMenu
+                    x={contextMenu.x}
+                    y={contextMenu.y}
+                    song={contextMenu.song}
+                    onClose={handleCloseContextMenu}
+                    onPlay={() => playSong(audioList.findIndex(s => s.id === contextMenu.song.id))}
+                    onEdit={() => handleOpenEdit(contextMenu.song)}
+                    onDelete={() => deleteSong(audioList.findIndex(s => s.id === contextMenu.song.id))}
+                />
             )}
         </main>
     );
